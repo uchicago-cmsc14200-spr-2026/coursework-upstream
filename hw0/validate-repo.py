@@ -123,7 +123,7 @@ def cmd(gradescope, base_dir):
         origin_upstream = GitRepoRemoteValidator(
             repo_dir,
             "upstream",
-            "git@github.com:uchicago-cmsc14200-spr-2025/coursework-upstream.git",
+            "git@github.com:uchicago-cmsc14200-spr-2026/coursework-upstream.git",
             depends=[is_repo],
         )
 
