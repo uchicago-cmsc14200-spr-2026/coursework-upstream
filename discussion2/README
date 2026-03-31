@@ -1,0 +1,114 @@
+CMSC 14200 Spring 2026
+Discussion 2
+
+This is an ungraded exercise whose purpose is to help you learn some
+of the foundations of programming interactive games. Learning how to 
+create interactive games is a skill that will be very helpful for the
+course project.
+
+Please review this whole document before diving in and writing code.
+
+You may work with another person on this task if you like. Please stay
+completely away from LLMs like ChatGPT or Claude; using any such tool
+would defeat the purpose of this work.
+
+The coding task is to build a dice-rolling toolkit that could be used
+to implement games like Yahtzee. The app will allow you to roll five
+dice, and re-roll some or all of the dice as desired. You will use a
+software framework called *pygame* to do this. Pygame is a Python
+toolkit that is especially good for constructing games, but it's not
+only for games; any application you want to build that involves
+graphics and real-time interactions (for example, a calculator, a
+graphing calculator, a stopwatch) could be written as a pygame app.
+
+Along with this README, this directory contains the file `quitter.py`,
+which is a sort of level-0 pygame application. All one can do with
+quitter application is quit[*] it, so it is not itself useful, but you
+can and should use it as a starting point for other pygame
+applications. Take a close look at the code in quitter and try to
+understand the methods written there.
+
+[*] You quit by clicking on the window's quit button, which has a
+different appearance and location depending on the platform the app is
+run on. (For example, on a Mac, the quit button is a red circle in a
+window's upper left corner.)
+
+To begin, from within the discussion2 directory, run
+
+  $ cp quitter.py roller.py
+
+The roller app, is, at first, identical to the quitter app.
+
+In `roller.py`, change the name of the class Quitter to Roller.
+
+The first modest extension to Roller should be to enable the lowercase
+q key to quit the app. To do this, you will need to place this
+conditional in the right location in the event loop:
+
+  if event.key == pygame.K_q:
+      self.quit_app()
+
+Actions are attached to other keys similarly (elif event.key ==
+pygame.K_r, etc.). Notice that the constant `pygame.K_q` is the way to
+refer to the q key on the keyboard; the full list of pygame key
+constants is at https://www.pygame.org/docs/ref/key.html.
+
+The roller application must clearly display five dice in a row from
+left to right. The roller application should implement the following
+keystroke behavior:
+
+- q should quit
+- r should roll/reroll the dice
+- 1 should freeze/unfreeze the leftmost die
+- 2 should freeze/unfreeze the next-to-leftmost die
+- 3 should freeze/unfreeze the middle die
+- 4 should freeze/unfreeze the next-to-rightmost die
+- 5 should freeze/unfreeze the rightmost die
+
+To draw dice, you will need to know how to draw circles and rectangles
+in pygame.
+
+To draw circles, use pygame.draw.circle, as in
+
+  pygame.draw.circle(surface, color, center, radius)
+
+For example:
+
+  pygame.draw.circle(self.surface, (0,0,0), (100,80), 30)
+
+Note that you can draw an outline circle (not a solid circle) by
+adding a named argument `width`, as in
+
+  pygame.draw.circle(self.surface, (0,0,0), (100,80), 30, width=3)
+
+If the presence of this width argument, the outline of a circle will
+be drawn using the given value as the width of that outline.
+
+To draw a rectangle,
+
+  pygame.draw.rect(surface, color, rect)
+
+The third parameter here, notated `rect`, must be a pygame Rect
+object, whose constructor takes (left, right, width, height), each an
+integer, in that order. For example:
+
+  pygame.draw.rect(self.surface, (0,0,100), Rect(20,30,300,100))
+
+You can also add a named width argument to this call to draw an
+outline (not filled-in) rectangle.
+
+See these links for more information on circles and rectangles:
+
+  https://www.pygame.org/docs/ref/draw.html#pygame.draw.circle
+  https://www.pygame.org/docs/ref/draw.html#pygame.draw.rect
+
+To maintain the status of five dice, you will need to add certain
+attributes to the Roller class. In our prototype implementation, we
+store a list of five numbers for the values on the faces of the five
+dice, and a list of five bools to keep track of which dice are
+currently frozen or not.
+
+This is just enough information for you to implement Roller. Think
+about how to shape the code; you have many choices to make. Ask lots
+of questions and enjoy!
+
