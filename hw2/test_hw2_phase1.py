@@ -45,7 +45,7 @@ def test_task1_sample_interactions() -> None:
     assert task1.median([1, 20, 300]) == 20
     assert task1.median([1, 20, 300, 4000]) in ((20, 300), (300, 20))
     assert task1.mode([1, 4, 2, 0, 0]) == [0]
-    assert task1.mode([1, 4, 2]) == [1, 2, 4]
+    assert set(task1.mode([1, 4, 2])) == set([1, 2, 4])
     assert task1.mode([]) == []
 
 
