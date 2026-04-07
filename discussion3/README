@@ -1,0 +1,81 @@
+CMSC 14200
+Discussion 3
+
+This is another ungraded exercise for your benefit. It will take you
+further in the direction of being able to build interactive games.
+
+Please review this whole document before diving in and writing
+code. You may work with another person on this task if you
+like. Please stay completely away from LLMs like ChatGPT or Claude;
+using any such tool would defeat the purpose of this work.
+
+The coding task is to be able to calculate whether a disc in a field
+of discs has been clicked on or not.
+
+The "game" you create should function as follows:
+    - There should be 9 circles displayed on the screen, perhaps in a grid
+    - The circles should be labeled with letters (see the assets folder)
+    - If a part of the screen that is not a disk is clicked, the co-ordinate
+    clicked should be printed to terminal
+    - If a disk is clicked, at any point in the circle, the letter of the disk 
+    clicked (i.e. "A") should be printed to terminal
+
+Possible extensions, if you finish the basic functionality:
+    - Have the disk clicked change color
+    - Have the disks move to new locations when one is clicked
+
+You have been supplied with:
+    - clickdiscs.py, a framework for completing this task, and
+    - an assets directory containing some relevant images (look inside).
+
+====== HOW TO RESPOND TO CLICKS
+
+When the player/user clicks on the pygame window, a `MOUSEBUTTONDOWN`
+event happens. Immediately thereafter, the position of the click is
+available in the variable `event.pos`, which is a pair of integers (a
+`tuple[int,int]`, in mypy terms). You will need to use `event.pos` to
+determine whether or not you have clicked on a disc.
+
+Remember that in pygame, the co-ordinate system starts as (0, 0) in the top
+left corner, with x increasing to the right and y increasing down the screen.
+
+====== DRAWING
+
+A refresher: to draw circles, use pygame.draw.circle, as in
+
+  pygame.draw.circle(surface, color, center, radius)
+
+For example:
+
+  pygame.draw.circle(self.surface, (0,0,0), (100,80), 30)
+
+There are "letter tiles" in assets/ that you can use to add labels to
+your disks. These are graphics in the .BMP image format, which is a convenient format when working with pygame.
+
+To draw an image on a pygame surface, the commands are
+
+  img = pygame.image.load([filename])
+  surface.blit(img,[position])
+
+For example, to draw the light blue A tile from assets on the screen,
+you can write
+
+  dir = "assets/images/letter-tiles"
+  img = pygame.image.load(dir+"/letter_lightblue_uppercase_A.bmp")
+  surface.blit(img,(0,0))
+
+The `blit` method of the surface draws the given image on that
+surface, with the coordinate argument as the upper-left corner of the
+drawn image. ("Blit" is an old-school computer programming
+abbreviation for "bit-block transfer.")
+
+You will notice that the letter tiles, as given, are too large for
+this GUI; you can scale them to different size(s) using the function
+pygame.transform.scale_by, as in
+
+  dir = "assets/images/letter-tiles"
+  img = pygame.image.load(dir+"/letter_lightblue_uppercase_A.bmp")
+  img = pygame.transform.scale_by(img,0.5) # the image is now half the size
+  surface.blit(img,(0,0))
+
+Enjoy the work and happy hacking!
