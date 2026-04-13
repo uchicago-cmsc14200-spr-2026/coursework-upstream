@@ -1,0 +1,89 @@
+CMSC 14200
+Discussion 4
+
+You may have done activities similar to "15 puzzles" in the past. A 15 puzzle
+contains 15 numbered tiles in a 4x4 square arrangement, with one empty square
+in addition to the tiles. The challenge is to slide the tiles around
+the puzzle, making use of the empty square, to arrange them in order from 1 to
+15. You can try an online 15 puzzle at https://15puzzle.netlify.app.
+
+Today's activity is to use python's functional programming tools (that you
+learned about in last week's lectures) in order to create an N puzzle (a puzzle of n items)
+that can be played from your terminal using a TUI (text user interface).
+
+We have provided for you a framework for your N puzzle. The interactive TUI part is 
+already done; your task is to implement the methods of the SlidingPuzzle class to 
+enable interactive play, using functional programming.
+
+In the internal representation of a puzzle, we use 0 to represent the
+empty square, and the numbers 1 through N for the numbered tiles. By
+convention, the tiles are kept in sequence in row order: the first c items in the 
+list (where c is the number of columns) are in the top row, the next c items are in 
+the second row, and so on.
+
+A user works to solve the puzzle by "sliding" numbered tiles into the empty 
+square, affectively moving the empty square in the puzzle in different 
+directions. The puzzle is solved when the numbers 1 through N are in numerical
+order and the empty square is in the bottom right corner of the puzzle.
+
+The methods you need to complete in the SlidingPuzzle class are as
+follows.
+
+__init__(rows: int, col: int)
+
+    You will need to initialize the puzzle by determining N and creating the internal 	
+    representation: a list containing the numbers 0 through N. The constructor takes as input
+    the number of rows and number of columns for the puzzle. You will calculate N using that
+    information.
+    
+    This internal representation of the puzzle should start in the "solved" position. (You'll
+    see why in the description for scramble)
+
+    Use a list comprehension to create this representation.
+
+valid_moves()
+
+    Return a list of directional functions (up, down, right, or left) that are possible moves
+    for the current state of the puzzle.
+
+    If down is a valid move, that means it is possible to slide the tile directly below the
+    empty square in the puzzle up, affectively moving the empty square in the puzzle down.
+    
+    To complete this function, fill in the dictionary of lambda functions for each move which
+    return True if the move is valid, and False if the move is not valid.
+
+    Then, write a list comprehension to return the functions corresponding only to valid moves.
+    (HINT: Functions are hashable, and can be the keys to a dictionary!)
+
+up()
+
+    "Slide" a tile up into the empty square in the puzzle by repositioning the numbers in the
+    array accordingly.
+
+    See if you can use list comprehensions to do this!
+
+down()
+right()
+left()
+
+    These are all like the up() method, except for the direction.
+
+scramble(i: int)
+
+    This method should make `i` random moves to scramble the
+    puzzle. Note that if the puzzle is simply *shuffled* completely
+    randomly, it might end up in an unsolvable state. By making random
+    valid moves to scramble the puzzle, it is guaranteed that solving
+    the puzzle is possible.
+
+    The moves you randomly choose should be valid moves, so this is a great
+    place to use valid_moves(). 
+    
+    Try doing this recursively! It can be written in as little as 3 lines.
+
+solved() -> bool
+
+    Return True if the puzzle is solved, False otherwise. The puzzle is
+    solved when the puzzle is in numerical order, with the empty square in the very 
+    last position.
+
