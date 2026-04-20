@@ -1,0 +1,60 @@
+CMSC 14200 Winter 2026
+Discussion 6
+February 10 and 11, 2026
+
+This week's exercise looks back at the 15 puzzles from two weeks ago.
+
+How would you write a program to solve a 15 puzzle? One possible way
+to go about it would be to build a *graph* where each vertex is a
+puzzle state, and an edge connects one vertex to another if the puzzle
+states are one move away from another; having built this graph, you
+could then find the shortest path from the current state to the solved
+state. We know path finding algorithms; this approach would certainly
+work. So we're as good as done, right? Well...
+
+The space of possible states of the 15 puzzle (so we have read on
+Wikipedia) is around 10**13, or 10 trillion. Assuming a puzzle state
+can be stored in 8 bytes (which perhaps it can be, at best), all those
+puzzle states would require approximately 80 trillion bytes of memory,
+which is roughly 80,000 gigabytes. If we assume a new MacBook has 32GB
+of memory, then it would take around 2,500 MacBooks just to store the
+vertices -- not to mention any of the *edges* in the graph, which we
+haven't yet taken into account. Furthermore, that is just to *store*
+the graph, not to compute with it. All this is to say that it is
+simply not possible to pursue this kind of exhaustive approach on an
+ordinary computer. The scale is too great; we would need a data center
+to do the computation. And if we increase the size of the puzzle to
+5x5, 6x6, etc., we very quickly surpass planetary scale. If we have
+any hope of solving this problem, We must find a different and more
+frugal way to go about it. Perhaps building only *part* of the puzzle
+graph could work...
+
+We have given you a coding framework that has a working SlidingPuzzle
+class in it, and a definition of a PuzzleGraph meant to store puzzle
+states as vertices. Please note that the PuzzleGraph labels its
+vertices with *strings* rather than SlidingPuzzles; you can use the
+__repr__() method of SlidingPuzzle to produce a string like
+'123456789ABCDEF_' that exactly represents a puzzle state, and use a
+string of that form at each vertex.
+
+Your task this week is to complete the `build_graph` function with the
+following header:
+
+  def build_graph(pzl : SlidingPuzzle, n: int) -> PuzzleGraph:
+
+The function should build a graph with vertices that are as many as
+`n` moves away from the argument `pzl`. There is a PDF in this
+directory that shows an example of a size 1 PuzzleGraph. Calling the
+build_graph function with n=0 should produce a graph containing
+exactly one vertex and, necessarily, no edges. Calling it with n=1
+should produce a graph with from 2 to 5 vertices and the `pzl` vertex
+connected to between 2 and 4 neighbors, depending on how many moves
+were available from the original state. (This is the size graph
+depicted in the PDF.) Calling it with n=2 should build out another
+layer of the graph, up to two moves away from the original state. And
+so on and so forth. (You can raise a ValueError if build_graph is
+called with n<0.)
+
+This is a challenging program to write! You may find recursion
+helpful. Please feel free to talk openly with and work with other
+students in attempting to complete this exercise.
