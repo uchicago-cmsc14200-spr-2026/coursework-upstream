@@ -1,0 +1,3 @@
+- data_nba/: directory containing NBA data; has its own README
+- expected/: directory containing expected test results; has its own README
+- load_data.py: function for loading data as pandas DataFrame variables
